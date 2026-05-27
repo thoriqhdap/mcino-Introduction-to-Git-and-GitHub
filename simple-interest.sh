@@ -1,9 +1,10 @@
 #!/bin/bash
-echo "Masukkan pokok pinjaman (principal):"
+echo "Masukkan pokok pinjaman (dalam angka, boleh desimal):"
 read p
-echo "Masukkan suku bunga (rate of interest):"
+echo "Masukkan suku bunga per tahun (dalam %, boleh desimal):"
 read r
-echo "Masukkan waktu dalam tahun (time period):"
+echo "Masukkan waktu dalam tahun (boleh desimal):"
 read t
-s=`expr $p \* $t \* $r / 100`
-echo "Bunga sederhananya adalah: $s"
+# Gunakan bc agar mendukung perhitungan desimal
+s=$(echo "scale=2; $p * $r * $t / 100" | bc -l)
+printf "Bunga sederhana yang dihitung: %s\n" "$s"
